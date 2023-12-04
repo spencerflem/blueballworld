@@ -1,0 +1,33 @@
+html,
+body,
+div,
+form,
+fieldset,
+legend,
+label,
+td {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100%;
+}
+
+#grid {
+  border-spacing: 0;
+  white-space: nowrap;
+}
+
+#grid td {
+  line-height: 0;
+  height: 100px;
+  width: 100px;
+  background-image: url("pipes.gif");
+  display: inline-block;
+  user-select: none;
+}
+
+#grid td:hover {
+  box-shadow: inset 0 0 0 1px #6b6b6b;
+}
