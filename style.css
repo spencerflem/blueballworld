@@ -22,8 +22,8 @@ body {
 }
 
 #grid td {
-  height: 100px;
-  width: 100px;
+  height: 99px;
+  width: 99px;
   /* background-image: url("pipes.gif"); */
   display: inline-block;
   user-select: none;
@@ -41,12 +41,17 @@ body {
   display: none;
   white-space: normal;
   position: absolute;
-  top: 108px;
-  right: -33px;
-  width: 166px;
-  border-radius: 3px;
+  top: 99px;
+  right: -34px;
+  width: 167px;
   z-index: 1;
   pointer-events: auto;
+  border-width: 7px 1px 1px 1px;
+  border-style: solid;
+  border-image-repeat: stretch;
+  border-image-outset: 0;
+  border-image-slice: 7 3 3 3 fill;
+  border-image-width: 7px 3px 3px 3px;
 }
 
 .bubble p {
@@ -55,15 +60,15 @@ body {
 }
 
 .note {
-  background-color: #666666;
   color: #ffffff;
-  outline: 1px solid #333333;
+  border-color: #333333;
+  border-image-source: url("grey\ bubble.gif");
 }
 
 .plead {
-  background-color: #ccffff;
   color: #000000;
-  outline: 1px solid #006699;
+  border-color: #006699;
+  border-image-source: url("blue\ bubble.gif");
 }
 
 .note strong {
