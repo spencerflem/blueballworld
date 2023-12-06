@@ -17,17 +17,88 @@ body {
 #grid {
   border-spacing: 0;
   white-space: nowrap;
+  image-rendering: pixelated;
+  /* background-image: url("huge-aes.gif"); */
 }
 
 #grid td {
-  line-height: 0;
   height: 100px;
   width: 100px;
-  background-image: url("pipes.gif");
+  /* background-image: url("pipes.gif"); */
   display: inline-block;
   user-select: none;
+  position: relative;
 }
 
-#grid td:hover {
-  box-shadow: inset 0 0 0 1px #6b6b6b;
+#grid td:focus {
+  box-shadow: inset 0 0 0 1px #333333;
+  pointer-events: none;
+}
+
+.bubble {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: small;
+  display: none;
+  white-space: normal;
+  position: absolute;
+  top: 108px;
+  right: -33px;
+  width: 166px;
+  border-radius: 3px;
+  z-index: 1;
+  pointer-events: auto;
+}
+
+.bubble p {
+  padding: 0.2em 0.4em;
+  margin: 0;
+}
+
+.note {
+  background-color: #666666;
+  color: #ffffff;
+  outline: 1px solid #333333;
+}
+
+.plead {
+  background-color: #ccffff;
+  color: #000000;
+  outline: 1px solid #006699;
+}
+
+.note strong {
+  text-shadow: -1px 1px 0px #333333;
+}
+
+.plead strong {
+  text-shadow: -1px 1px 0px #ffffff;
+}
+
+#grid td:focus .bubble {
+  display: block;
+}
+
+#footer {
+  background: red;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 50px;
+}
+
+:link {
+  color: #0000FF;
+}
+
+:visited {
+  color: #663399;
+}
+
+.plead :link:hover, .plead :visited:hover {
+  text-shadow: -1px 1px 0px #FFFFFF;
+}
+
+:link:active, :visited:active {
+  color: #FF0000;
 }

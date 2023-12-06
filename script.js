@@ -1,12 +1,46 @@
 const table = document.querySelector("#grid");
-for (let i = 0; i < 50; i++) {
+for (let i = 0; i < 67; i++) {
   const tr = table.insertRow();
-  for (let j = 0; j < 50; j++) {
+  for (let j = 0; j < 67; j++) {
     const td = tr.insertCell();
-    td.style.backgroundPosition = "40px 0px";
+    td.tabIndex = -1;
+    const div = document.createElement("div");
+
+    if ((i + j) % 2 === 0) {
+      div.className = "bubble note";
+      const p = document.createElement("p");
+      const strong = document.createElement("strong");
+      strong.innerText = "Hubert Normalman";
+      const emphasis = document.createElement("em");
+      emphasis.innerText = "The Crazycopter";
+      const text = document.createTextNode(", 2023");
+      p.appendChild(strong);
+      p.appendChild(document.createElement("br"));
+      p.appendChild(emphasis);
+      p.appendChild(text);
+      div.appendChild(p);
+      td.appendChild(div)
+    } else {
+      div.className = "bubble plead";
+      const p = document.createElement("p");
+      const strong = document.createElement("strong");
+      strong.innerText = "Help Grow The Machine";
+      const text = document.createTextNode(
+        "Reserve this tile and change the face of the factory forever"
+        );
+      const a = document.createElement("a");
+      a.href = "https://www.gooasdsadgle.com"
+      a.innerText = "-----> Click Here <-----";
+      p.appendChild(strong);
+      p.appendChild(document.createElement("br"));
+      p.appendChild(text);
+      p.appendChild(document.createElement("br"));
+      p.appendChild(a);
+      div.appendChild(p);
+      td.appendChild(div);
+    }
   }
 }
-
 
 //https://stackoverflow.com/a/55028818/2994229
 let deltaTime = 0;
@@ -20,11 +54,10 @@ function update(timestamp) {
   requestAnimationFrame(update);
   deltaTime = timestamp - lastTimestamp;
   lastTimestamp = timestamp;
-  update2(deltaTime)
+  update2(deltaTime);
 }
 
 start();
-
 
 var isMouseDown = false;
 var dirty = true;
@@ -46,14 +79,14 @@ window.addEventListener("pointerup", up);
 
 function down(event) {
   if (event.pointerType === "mouse") {
-    console.log("DOWN")
+    console.log("DOWN");
     isMouseDown = true;
     if (xVelocity > 0 || yVelocity > 0) {
       clickAvailable = true;
     }
     start = {
       x: event.offsetX,
-      y: event.offsetY
+      y: event.offsetY,
     };
   }
   event.stopPropagation();
@@ -85,7 +118,7 @@ function move(event) {
 function up(event) {
   if (event.pointerType === "mouse") {
     if (isMouseDown) {
-      console.log("UP")
+      console.log("UP");
     }
     isMouseDown = false;
   }
@@ -122,17 +155,21 @@ function update2(elapsed) {
   const tf = timeSinceRelease + elapsed;
 
   if (xVelocity || yVelocity) {
-    xScroll = ((xVelocity * TP) / Math.log(friction)) * (Math.pow(friction, tf / TP) - Math.pow(friction, ti / TP));
-    yScroll = ((yVelocity * TP) / Math.log(friction)) * (Math.pow(friction, tf / TP) - Math.pow(friction, ti / TP));
-    
+    xScroll =
+      ((xVelocity * TP) / Math.log(friction)) *
+      (Math.pow(friction, tf / TP) - Math.pow(friction, ti / TP));
+    yScroll =
+      ((yVelocity * TP) / Math.log(friction)) *
+      (Math.pow(friction, tf / TP) - Math.pow(friction, ti / TP));
+
     xVelocity *= Math.pow(friction, elapsed / TP);
     yVelocity *= Math.pow(friction, elapsed / TP);
-  
+
     window.scrollBy(xScroll, yScroll);
 
     dirty = true;
   }
-  
+
   timeSinceRelease += elapsed;
 
   // End decelerate velocity once it goes under a certain amount of precision.
