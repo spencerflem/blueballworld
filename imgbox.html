@@ -5,7 +5,7 @@
     <title>Blue Ball Machine</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="imgbox.css" />
     <link rel="icon" href="favicon.png" />
     <link rel="preload" as="image" href="blue bubble.gif">
     <link rel="preload" as="image" href="grey bubble.gif">
@@ -15,9 +15,23 @@
   </head>
   <body>
     <div id="viewport">
-      <table role="grid" id="grid"></table>
+      <table role="grid" id="grid">
+        <tr>
+            <td>
+                <article class="h-entry" tabindex="0">
+                    <div role="img" class="tile e-content" aria-label="alt text">
+                        <!-- link to .gif tile somehow? -->
+                    </div>
+                    <div class="bubble note">
+                        <address class="p-author h-card">Steph Humando</address>
+                        <cite class="p-name">The Hydonating Whirleygig</cite>, <time class="dt-published" datetime="2023">2023</time>
+                    </div>
+                </div>
+            </td>
+        </tr>
+      </table>
     </div>
     <div id="footer"></div>
-    <script src="script.js"></script>
+    <!-- <script src="script.js"></script> -->
   </body>
 </html>

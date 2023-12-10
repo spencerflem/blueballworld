@@ -23,25 +23,35 @@ body {
   border-spacing: 0;
   white-space: nowrap;
   image-rendering: pixelated;
-  /* background-image: url("huge-aes.gif"); */
+  table-layout: fixed;
+  width: 99px;
+  height: 99px;
+  margin: 400px;
 }
 
-#grid td {
-  height: 99px;
-  width: 99px;
-  /* background-image: url("pipes.gif"); */
+#grid td,
+#grid tr {
+  padding: 0;
+}
+
+#grid article {
   display: inline-block;
-  user-select: none;
   position: relative;
   padding: 0;
 }
 
-#grid td:focus-within {
+#grid .tile {
+  height: 99px;
+  width: 99px;
+  background-image: url("pipes.gif");
+}
+
+#grid article:focus-within {
   outline: 1px solid #333333;
   pointer-events: none;
 }
 
-#grid td:focus-visible {
+#grid article:focus-visible {
   outline: 1px solid #333333;
 }
 
@@ -60,9 +70,6 @@ body {
   border-image-outset: 0;
   border-image-slice: 7 3 3 3 fill;
   border-image-width: 7px 3px 3px 3px;
-}
-
-.bubble p {
   padding: 2px 5px;
   margin: 0;
 }
@@ -80,15 +87,15 @@ body {
   border-image-source: url("blue\ bubble.gif");
 }
 
-.note strong {
+.note address {
   text-shadow: -1px 1px 0px #333333;
 }
 
-.plead strong {
+.plead address {
   text-shadow: -1px 1px 0px #ffffff;
 }
 
-#grid td:focus-within .bubble {
+#grid article:focus-within .bubble {
   display: block;
 }
 
@@ -97,22 +104,34 @@ body {
   height: 50px;
 }
 
-:link, :visited {
+:link,
+:visited {
   text-decoration-thickness: 1px;
 }
 
 :link {
-  color: #0000FF;
+  color: #0000ff;
 }
 
 :visited {
   color: #663399;
 }
 
-.plead :link:hover, .plead :visited:hover {
-  text-shadow: -1px 1px 0px #FFFFFF;
+.plead :link:hover,
+.plead :visited:hover {
+  text-shadow: -1px 1px 0px #ffffff;
 }
 
-:link:active, :visited:active {
-  color: #FF0000;
+:link:active,
+:visited:active {
+  color: #ff0000;
+}
+
+address {
+    font-style: normal;
+    font-weight: bold;
+}
+
+cite {
+    font-style: normal;
 }

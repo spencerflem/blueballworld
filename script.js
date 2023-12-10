@@ -1,9 +1,25 @@
+// credits: pixi-viewport, 98.cc
+
+// https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/hidden#the_hidden_until_found_state
+// use ^ instead of Focus
+//https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected
+// or https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-expanded
+// maybe https://www.w3.org/WAI/ARIA/apg/patterns/accordion/
+//https://www.accessibility-developer-guide.com/examples/widgets/tooltips/
+//https://www.w3.org/WAI/ARIA/apg/patterns/grid/examples/data-grids/
+
+// TODO: ON FOCUS, SET TAB-INDEX OF NEW SPOT TO 0, OTHERS TO -1
+
 const table = document.querySelector("#grid");
 for (let i = 0; i < 67; i++) {
   const tr = table.insertRow();
   for (let j = 0; j < 67; j++) {
     const td = tr.insertCell();
-    td.tabIndex = -1;
+    if (i == 33 && j == 33) {
+      td.tabIndex = 0;
+    } else {
+      td.tabIndex = -1;
+    }
     const div = document.createElement("div");
 
     if ((i + j) % 2 === 0) {
@@ -11,15 +27,12 @@ for (let i = 0; i < 67; i++) {
       const p = document.createElement("p");
       const strong = document.createElement("strong");
       strong.innerText = "Hubert Normalman";
-      const emphasis = document.createElement("em");
-      emphasis.innerText = "The Crazycopter";
-      const text = document.createTextNode(", 2023");
+      const text = document.createTextNode("The Crazycopter, 2023");
       p.appendChild(strong);
       p.appendChild(document.createElement("br"));
-      p.appendChild(emphasis);
       p.appendChild(text);
       div.appendChild(p);
-      td.appendChild(div)
+      td.appendChild(div);
     } else {
       div.className = "bubble plead";
       const p = document.createElement("p");
@@ -27,9 +40,9 @@ for (let i = 0; i < 67; i++) {
       strong.innerText = "Help Grow The Machine";
       const text = document.createTextNode(
         "Reserve this tile and change the face of the factory forever"
-        );
+      );
       const a = document.createElement("a");
-      a.href = "https://www.gooasdsadgle.com"
+      a.href = "https://www.gooasdsadgle.com";
       a.innerText = "-----> Click Here <-----";
       p.appendChild(strong);
       p.appendChild(document.createElement("br"));
@@ -55,7 +68,7 @@ function update(timestamp) {
   deltaTime = timestamp - lastTimestamp;
   lastTimestamp = timestamp;
   update2(deltaTime);
-}
+} // stop calling when movement is done !!!
 
 start();
 
@@ -75,21 +88,23 @@ const TP = 16; // Time Period - stolen from pixi-viewport
 window.addEventListener("pointerdown", down);
 window.addEventListener("pointermove", move);
 window.addEventListener("pointerup", up);
-//viewport.addEventListener("pointerout", (e) => { console.log("UP2") ; up(e) });
+viewport.addEventListener("pointerupoutside", up);
+viewport.addEventListener("pointercancel", up);
 
 function down(event) {
+  console.log(event)
   if (event.pointerType === "mouse") {
-    console.log("DOWN");
     isMouseDown = true;
-    if (xVelocity > 0 || yVelocity > 0) {
-      clickAvailable = true;
-    }
     start = {
       x: event.offsetX,
       y: event.offsetY,
     };
+    if (event.target.nodeName === "TD" || event.target.nodeName === "TR") {
+      event.preventDefault();
+      event.stopPropagation();
+      clickAvailable = true;
+    }
   }
-  event.stopPropagation();
 }
 
 function move(event) {
@@ -106,48 +121,44 @@ function move(event) {
     dirty = true;
   }
   if (isMouseDown && clickAvailable && start != null) {
-    const distX = event.offsetX - start.x;
-    const distY = event.offsetY - start.y;
-    if (distX > 5 || distY > 5) {
+    const distX = Math.abs(event.offsetX - start.x);
+    const distY = Math.abs(event.offsetY - start.y);
+    console.log(`BROK! x:${distX}, y:${distY}`)
+    if (distX > 2 || distY > 2) {
       clickAvailable = false;
     }
   }
-  event.stopPropagation();
 }
 
 function up(event) {
-  if (event.pointerType === "mouse") {
-    if (isMouseDown) {
-      console.log("UP");
-    }
+  console.log(event)
+  if (isMouseDown) {
     isMouseDown = false;
-  }
 
-  if (savedPositions.length) {
-    const now = performance.now();
-    // get the position 100 ms ago, and base the velocity off that
-    for (const save of savedPositions) {
-      if (save.time >= now - 100) {
-        const time = now - save.time;
-        xVelocity = (window.scrollX - save.x) / time;
-        yVelocity = (window.scrollY - save.y) / time;
-        timeSinceRelease = 0;
-        break;
+    if (savedPositions.length) {
+      const now = performance.now();
+      // get the position 100 ms ago, and base the velocity off that
+      for (const save of savedPositions) {
+        if (save.time >= now - 100) {
+          const time = now - save.time;
+          xVelocity = (window.scrollX - save.x) / time;
+          yVelocity = (window.scrollY - save.y) / time;
+          timeSinceRelease = 0;
+          break;
+        }
       }
     }
+
+    if (this.clickAvailable) {
+      console.log("clicked!");
+      if (event.target.nodeName === "TD") {
+        event.target.focus({preventScroll: true});
+      } else if (event.target.nodeName === "TR") {
+        document.activeElement.blur();
+      }
+      this.clickAvailable = false;
+    }
   }
-
-  // if (this.clickAvailable) {
-  //     this.container.emit('clicked', {
-  //         event,
-  //         screen: this.start,
-  //         world: this.container.toWorld(this.start),
-  //         viewport: this
-  //     });
-  //     this.clickAvailable = false;
-  // }
-
-  event.stopPropagation();
 }
 
 function update2(elapsed) {
@@ -178,3 +189,42 @@ function update2(elapsed) {
     yVelocity = 0;
   }
 }
+
+function scrollToTile(x, y) {
+  console.log(`x:${x}, y:${y}`);
+  let row = table.rows[Math.floor(table.rows.length / 2) - y];
+  console.log(Math.floor(table.rows.length / 2));
+  let cell = row.cells[x + Math.floor(row.cells.length / 2)];
+  console.log(cell);
+  cell.scrollIntoView({
+    behavior: "auto",
+    block: "center",
+    inline: "center",
+  });
+}
+
+window.addEventListener("hashchange", (event) => {
+  console.log(event);
+  goToHash();
+});
+
+function goToHash() {
+  let hash = location.hash.split(",");
+  let x = 0;
+  let y = 0;
+  console.log(hash);
+  console.log(`x:${x}, y:${y}`);
+  if (hash.length == 2) {
+    x = parseInt(hash[0].substring(1));
+    y = parseInt(hash[1]);
+    console.log(`x:${x}, y:${y}`);
+    if (!(x >= -33 && x <= 33 && y >= -33 && y <= 33)) {
+      x = 0;
+      y = 0;
+      console.log(`x:${x}, y:${y}`);
+    }
+  }
+  scrollToTile(x, y);
+}
+
+goToHash();
