@@ -5,6 +5,7 @@ form,
 fieldset,
 legend,
 label,
+article,
 td {
   margin: 0;
   padding: 0;
@@ -35,9 +36,8 @@ body {
 }
 
 #grid article {
-  display: inline-block;
+  display: block;
   position: relative;
-  padding: 0;
 }
 
 #grid .tile {
@@ -128,10 +128,10 @@ body {
 }
 
 address {
-    font-style: normal;
-    font-weight: bold;
+  font-style: normal;
+  font-weight: bold;
 }
 
 cite {
-    font-style: normal;
+  font-style: normal;
 }
