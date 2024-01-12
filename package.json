@@ -1,0 +1,36 @@
+{
+	"name": "spenc.net",
+	"version": "1.0.0",
+	"description": "Personal website for one Spencer Fleming",
+	"private": true,
+	"scripts": {
+		"build": "npx @11ty/eleventy",
+		"start": "npx @11ty/eleventy --serve"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://https://github.com/spencerflem/blueballworld.git"
+	},
+	"author": {
+		"name": "Spencer Fleming",
+		"email": "mail@spenc.net",
+		"url": "https://www.spenc.net/"
+	},
+	"license": "MIT",
+	"engines": {
+		"node": ">=20"
+	},
+	"bugs": {
+		"url": "https://github.com/spencerflem/blueballworld/issues"
+	},
+	"homepage": "https://github.com/spencerflem/blueballworld#readme",
+	"devDependencies": {
+		"@11ty/eleventy": "^2.0.1",
+		"@11ty/eleventy-img": "^3.1.1",
+		"@11ty/eleventy-plugin-bundle": "^1.0.4",
+		"@11ty/eleventy-plugin-rss": "^1.2.0",
+		"@11ty/eleventy-plugin-webc": "^0.11.2",
+		"sharp": "^0.32.1",
+		"luxon": "^3.3.0"
+	}
+}
