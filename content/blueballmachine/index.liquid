@@ -216,6 +216,36 @@
       box-shadow: 1px 0 0 white, 1px 1px 0 white, 0 1px 0 white, -1px 0 0 darkgrey,
         -1px -1px 0 darkgrey, 0 -1px 0 darkgrey, -1px 1px 0 white, 1px -1px darkgrey;
     }
+
+    @media (max-width: 250px) {
+      .p0 {
+        display: none !important;
+      }
+    }
+
+    @media (max-width: 350px) {
+      .p1 {
+        display: none !important;
+      }
+    }
+
+    @media (max-width: 450px) {
+      .p2 {
+        display: none !important;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .p3 {
+        display: none !important;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .p4 {
+        display: none !important;
+      }
+    }
   </style>
   <template>
     {% render "blueballmachine/fragment-tile", tile:tile, positionX: column[0], positionY:row[0], fragments: blueballmachine.fragments %}
@@ -254,16 +284,16 @@
       </a>
     </button>
 
-    <div class="nojs-only" style="flex-grow: 1; padding: 0 10px">
+    <div class="nojs-only p2" style="flex-grow: 1; padding: 0 10px">
       Keep up the good fight, NoScripters
     </div>
 
-    <div class="js-only" style="flex-grow: 1;">
+    <div class="js-only p0" style="flex-grow: 1;">
       <span style="flex-grow: 1;"></span>
-      <button onclick="dialog.show();">About</button>
-      <button onclick="dialog.show();">Add to the Machine!</button>
+      <button class="p0" onclick="dialog.show();">About</button>
+      <button class="p1" onclick="dialog.show();">Add to the Machine!</button>
     </div>
-    <div class="js-only">
+    <div class="js-only p3">
       <label for="zoom">
         <div role="img" class="sprite" aria-label="Zoom: " tile="zoom" style="{{'icons' | sprite: 'zoomicon.gif' | style: 'spritesheets' }}"></div>
       </label>
@@ -277,17 +307,17 @@
       <output for="zoom" class="display" style="width: 25px">5%</button>
     </div>
 
-    <div class="js-only">
+    <div class="js-only p4">
       <label>
         <div role="img" class="sprite" aria-label="Position: " tile="position" style="{{'icons' | sprite: 'position.gif' | style: 'spritesheets' }}"></div>
       </label>
       <span class="display" style="width: 50px">0, 0</span>
     </div>
 
-    <button class="toggle-disabled subtle js-only" onclick="setMusic(true)">
+    <button class="toggle-disabled subtle js-only p0" onclick="setMusic(true)">
       <div role="img" class="sprite" aria-label="Enable Music" style="{{'icons' | sprite: 'soundoff.gif' | style: 'spritesheets' }}"></div>
     </button>
-    <button class="toggle-enabled subtle js-only" onclick="setMusic(false)">
+    <button class="toggle-enabled subtle js-only p0" onclick="setMusic(false)">
       <div role="img" class="sprite" aria-label="Enable Music" style="{{'icons' | sprite: 'soundon.gif' | style: 'spritesheets' }}"></div>
     </button>
 
