@@ -1,0 +1,9 @@
+{
+    "up-left": {
+        "sprites": {
+            "openfragments": "ball_bt_a.gif",
+            "closedfragments": "ball_bt_a.gif",
+            "underconstructionfragments": "ball_bt_a.gif"
+        }
+    }
+}

@@ -1,0 +1,42 @@
+<div
+  class="tile bp"
+  tabindex="{% if positionX == 0 and positionY == 0 %}0{% else %}-1{% endif %}"
+  style="transform: translate({{positionX | times: 100 | plus: 50}}%, {{positionY | times: 100 | plus: 50}}%);"
+>
+  <table class="fragmentTable bp" role="img" aria-label="{{tile.alt}}">
+    <tbody class="bp">
+      {% for row in sprites %}
+        <tr class="bp">
+          {% for column in row %}
+            <td class="bp">
+              <div
+                class="fragmentImg bp"
+                style="background-image: {% for sprite in column %}url(spritesheets/{{sprite.spritesheet}}){% unless forloop.last %}, {% endunless %}{% endfor %}; background-position-y: {% for sprite in column %}-{{sprite.positionY}}px{% unless forloop.last %}, {% endunless %}{% endfor %}"
+              ></div>
+            </td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% case tile.bubble.variant %}
+    {% when 'closed' %}
+      <div class="bubble note">
+        <p>{{ tile.bubble.bodyMessage }}</p>
+      </div>
+    {% when 'underconstruction' %}
+      <div class="bubble note">
+        <p>{{ tile.bubble.bodyMessage }}</p>
+      </div>
+    {% when 'open' %}
+      <div class="bubble plead">
+        <p>
+          <strong>{{ tile.bubble.titleMessage }}</strong>
+          <br>
+          {{ tile.bubble.bodyMessage }}
+          <br>
+          <a href="https://www.gooasdsadgle.com">{{ tile.bubble.linkMessage }}</a>
+        </p>
+      </div>
+  {% endcase %}
+</div>

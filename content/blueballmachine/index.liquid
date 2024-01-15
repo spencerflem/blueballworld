@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en" class="h-feed js-disabled">
+  <head>
+    <meta charset="UTF-8">
+    <title class="p-name">Blue Ball Machine</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="">
+    <meta name="generator" content="{{eleventy.generator}}">
+    <link rel="stylesheet" href="index.css">
+    <script>
+      document.documentElement.classList.replace('js-disabled', 'js-enabled');
+    </script>
+    <style>
+      @font-face {
+        font-family: 'Pixelated MS Sans Serif';
+        src: url('fonts/ms_sans_serif.woff') format('woff');
+        src: url('fonts/ms_sans_serif.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: 'Pixelated MS Sans Serif';
+        src: url('fonts/ms_sans_serif_bold.woff') format('woff');
+        src: url('fonts/ms_sans_serif_bold.woff2') format('woff2');
+        font-weight: bold;
+        font-style: normal;
+      }
+
+      :root {
+        /* Window borders flip button-face and button-highlight */
+        --text-color: #333333;
+        --surface: #cccccc;
+        --button-highlight: #ffffff;
+        --button-face: #cccccc;
+        --button-shadow: #999999;
+        --window-frame: #000000;
+        --dialog-blue: #333399;
+        --dialog-blue-light: #66ccff;
+        --dialog-gray: #999999;
+        --dialog-gray-light: #cccccc;
+        --link-blue: #0000ff;
+        --border-window-outer: inset -1px -1px var(--window-frame), inset 1px 1px var(--button-face);
+        --border-window-inner: inset -2px -2px var(--button-shadow), inset 2px 2px var(--button-highlight);
+        --border-width: 1px;
+        --border-raised-outer: inset -1px -1px var(--window-frame), inset 1px 1px var(--button-highlight);
+        --border-raised-inner: inset -2px -2px var(--button-shadow), inset 2px 2px var(--button-face);
+        --border-sunken-outer: inset -1px -1px var(--button-highlight), inset 1px 1px var(--window-frame);
+        --border-sunken-inner: inset -2px -2px var(--button-face), inset 2px 2px var(--button-shadow);
+      }
+
+      body {
+        font-family: 'Pixelated MS Sans Serif', Arial;
+        font-size: 11px;
+      }
+
+      footer {
+        -webkit-font-smoothing: none;
+        box-shadow: var(--border-window-outer), var(--border-window-inner);
+        background: var(--surface);
+        padding: 3px;
+        margin: 0px 1px;
+        display: flex;
+        gap: 1px;
+        align-items: center;
+      }
+
+      footer > * {
+        box-shadow: inset -1px -1px #cccccc, inset 1px 1px #999999;
+        margin: 4px 0;
+        padding: 0 4px;
+        display: flex;
+        align-items: center;
+        height: 100%;
+      }
+
+      button {
+        border: none;
+        color: transparent;
+        text-shadow: 0 0 var(--text-color);
+        background: var(--surface);
+        box-shadow: var(--border-raised-outer), var(--border-raised-inner);
+        border-radius: 0;
+        padding: 4px 12px;
+        margin: 0 4px;
+        font-family: 'Pixelated MS Sans Serif', Arial;
+        font-size: 11px;
+      }
+
+      button.subtle {
+        padding: 0 5px;
+        margin: 5px 0;
+        box-shadow: inset -1px -1px #cccccc, inset 1px 1px #999999;
+      }
+
+      button:active {
+        box-shadow: var(--border-sunken-outer), var(--border-sunken-inner);
+        text-shadow: 1px 1px var(--text-color);
+      }
+
+      @media not(any-hover) {
+        footer button:hover {
+          box-shadow: var(--border-sunken-outer), var(--border-sunken-inner);
+        }
+      }
+
+      button:focus {
+        outline: 1px dotted #000000;
+        outline-offset: -4px;
+      }
+
+      button::-moz-focus-inner {
+        border: 0;
+      }
+
+      .display {
+        background-color: #ffffff;
+        margin: 0 2px;
+        padding: 4px 8px;
+        box-shadow: var(--border-sunken-outer), var(--border-sunken-inner);
+      }
+
+      .toggle-enabled,
+      .toggle-disabled {
+        display: none;
+      }
+
+      .toggle-show-enabled .toggle-enabled {
+        display: revert;
+      }
+
+      .toggle-show-disabled .toggle-disabled {
+        display: revert;
+      }
+
+      .js-disabled .js-only {
+        display: none;
+      }
+
+      .js-enabled .nojs-only {
+        display: none;
+      }
+
+      .sprite {
+        image-rendering: pixelated;
+      }
+
+      footer label {
+        margin: 0 3px;
+      }
+
+      input[type='range'] {
+        -webkit-appearance: none;
+        width: 100%;
+        background: transparent;
+      }
+
+      input[type='range']:focus {
+        outline: none;
+      }
+
+      input[type='range']::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 21px;
+        width: 11px;
+        background: url("data:image/svg+xml;charset=utf-8,%3Csvg width='11' height='21' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 0v16h2v2h2v2h1v-1H3v-2H1V1h9V0z' fill='%23fff'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M1 1v15h1v1h1v1h1v1h2v-1h1v-1h1v-1h1V1z' fill='%23C0C7C8'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M9 1h1v15H8v2H6v2H5v-1h2v-2h2z' fill='%2387888F'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M10 0h1v16H9v2H7v2H5v1h1v-2h2v-2h2z' fill='%23000'/%3E%3C/svg%3E");
+        border: none;
+        transform: translateY(-8px);
+        box-shadow: none;
+      }
+
+      input[type='range'].has-box-indicator::-webkit-slider-thumb {
+        background: url("data:image/svg+xml;charset=utf-8,%3Csvg width='11' height='21' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 0v20h1V1h9V0z' fill='%23fff'/%3E%3Cpath fill='%23C0C7C8' d='M1 1h8v18H1z'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M9 1h1v19H1v-1h8z' fill='%2387888F'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M10 0h1v21H0v-1h10z' fill='%23000'/%3E%3C/svg%3E");
+        transform: translateY(-10px);
+      }
+
+      input[type='range']::-moz-range-thumb {
+        height: 21px;
+        width: 11px;
+        border-radius: 0;
+        background: url("data:image/svg+xml;charset=utf-8,%3Csvg width='11' height='21' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 0v16h2v2h2v2h1v-1H3v-2H1V1h9V0z' fill='%23fff'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M1 1v15h1v1h1v1h1v1h2v-1h1v-1h1v-1h1V1z' fill='%23C0C7C8'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M9 1h1v15H8v2H6v2H5v-1h2v-2h2z' fill='%2387888F'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M10 0h1v16H9v2H7v2H5v1h1v-2h2v-2h2z' fill='%23000'/%3E%3C/svg%3E");
+        border: 0;
+        transform: translateY(2px);
+      }
+
+      input[type='range'].has-box-indicator::-moz-range-thumb {
+        background: url("data:image/svg+xml;charset=utf-8,%3Csvg width='11' height='21' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 0v20h1V1h9V0z' fill='%23fff'/%3E%3Cpath fill='%23C0C7C8' d='M1 1h8v18H1z'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M9 1h1v19H1v-1h8z' fill='%2387888F'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M10 0h1v21H0v-1h10z' fill='%23000'/%3E%3C/svg%3E");
+        transform: translateY(0);
+      }
+
+      input[type='range']::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 2px;
+        box-sizing: border-box;
+        background: black;
+        border-right: 1px solid grey;
+        border-bottom: 1px solid grey;
+        box-shadow: 1px 0 0 white, 1px 1px 0 white, 0 1px 0 white, -1px 0 0 darkgrey, -1px -1px 0 darkgrey,
+          0 -1px 0 darkgrey, -1px 1px 0 white, 1px -1px darkgrey;
+      }
+
+      input[type='range']::-moz-range-track {
+        width: 100%;
+        height: 2px;
+        box-sizing: border-box;
+        background: black;
+        border-right: 1px solid #666666;
+        border-bottom: 1px solid #666666;
+        box-shadow: 1px 0 0 white, 1px 1px 0 white, 0 1px 0 white, -1px 0 0 darkgrey, -1px -1px 0 darkgrey,
+          0 -1px 0 darkgrey, -1px 1px 0 white, 1px -1px darkgrey;
+      }
+
+      @media (max-width: 250px) {
+        .p0 {
+          display: none !important;
+        }
+      }
+
+      @media (max-width: 350px) {
+        .p1 {
+          display: none !important;
+        }
+      }
+
+      @media (max-width: 450px) {
+        .p2 {
+          display: none !important;
+        }
+      }
+
+      @media (max-width: 650px) {
+        .p3 {
+          display: none !important;
+        }
+      }
+
+      @media (max-width: 800px) {
+        .p4 {
+          display: none !important;
+        }
+      }
+
+      #bg {
+        background-image: url('ui/demobg.gif');
+        background-repeat: repeat;
+        width: 10000px;
+        height: 10000px;
+        z-index: -3;
+      }
+    </style>
+    {% comment %}
+      <template>
+        {% render "blueballmachine/fragment-tile", tile:tile, positionX: column[0], positionY:row[0], fragments: blueballmachine.fragments %}
+      </template>
+    {% endcomment %}
+  </head>
+
+  <body>
+    <div id="viewport">
+      <div id="bg"></div>
+      <div role="grid" aria-readonly="true" id="grid">
+        {% assign rows = blueballmachine.overrideLocations | appendStartingSet | sortEntriesNumerically %}
+        {% for row in rows %}
+          <div role="gridrow" class="bp">
+            {% liquid
+              assign columns = row[1] | sortEntriesNumerically
+              for column in columns
+                case column[1].type
+                  when 'user'
+                    assign tile = blueballmachine.userTiles[column[1].id] | withvariant: 'blueballmachine'
+                    assign sprite = tile | tilesprite
+                    render 'blueballmachine/user-tile', tile: tile, sprite: sprite, positionX: column[0], positionY: row[0]
+                  when 'fragment'
+                    assign tile = column[1].variant | defaultTile: column[0], row[0]
+                    assign sprites = tile | fragmentsprites: blueballmachine.fragments
+                    render 'blueballmachine/fragment-tile', tile: tile, sprites: sprites, positionX: column[0], positionY: row[0]
+                endcase
+              endfor
+            %}
+            {% comment %} TODO: Add more starting tiles w/ default location {% endcomment %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <button class="js-only" style="padding: 0; position: fixed">
+      <div
+        role="img"
+        class="sprite"
+        aria-label="Show Footer"
+        style="{{'icons' | sprite: 'showfooter.gif' | spritestyle: 'spritesheets' }}"
+      ></div>
+    </button>
+    <footer id="music-toggle" class="toggle-show-disabled">
+      <button class="subtle js-only">
+        <div
+          role="img"
+          class="sprite"
+          aria-label="Hide Footer"
+          style="{{'icons' | sprite: 'hidefooter.gif' | spritestyle: 'spritesheets' }}"
+        ></div>
+      </button>
+      <button class="subtle">
+        <a class="logo" href="/">
+          <div
+            role="img"
+            class="sprite"
+            aria-label="spenc.net home"
+            tile="spenc.net"
+            style="{{'icons' | sprite: 'spencnet.gif' | spritestyle: 'spritesheets' }}"
+          ></div>
+        </a>
+      </button>
+
+      <div class="nojs-only p2" style="flex-grow: 1; padding: 0 10px">Keep up the good fight, NoScripters</div>
+
+      <div class="js-only p0" style="flex-grow: 1;">
+        <span style="flex-grow: 1;"></span>
+        <button class="p0" onclick="dialog.show();">About</button>
+        <button class="p1" onclick="dialog.show();">Add to the Machine!</button>
+      </div>
+      <div class="js-only p3">
+        <label for="zoom">
+          <div
+            role="img"
+            class="sprite"
+            aria-label="Zoom: "
+            tile="zoom"
+            style="{{'icons' | sprite: 'zoomicon.gif' | spritestyle: 'spritesheets' }}"
+          ></div>
+        </label>
+        <button for="zoom" style="padding: 0">
+          <div
+            role="img"
+            class="sprite"
+            aria-label="Zoom Out"
+            style="{{'icons' | sprite: 'zoomout.gif' | spritestyle: 'spritesheets' }}"
+          ></div>
+        </button>
+        <input type="range" min="1" max="11" value="5" id="zoom" name="zoom">
+        <button for="zoom" style="padding: 0">
+          <div
+            role="img"
+            class="sprite"
+            aria-label="Zoom In"
+            style="{{'icons' | sprite: 'zoomin.gif' | spritestyle: 'spritesheets' }}"
+          ></div>
+        </button>
+        <output for="zoom" class="display" style="width: 25px">5%</output>
+      </div>
+
+      <div class="js-only p4">
+        <label>
+          <div
+            role="img"
+            class="sprite"
+            aria-label="Position: "
+            tile="position"
+            style="{{'icons' | sprite: 'position.gif' | spritestyle: 'spritesheets' }}"
+          ></div>
+        </label>
+        <span class="display" style="width: 50px">0, 0</span>
+      </div>
+
+      <button class="toggle-disabled subtle js-only p0" onclick="setMusic(true)">
+        <div
+          role="img"
+          class="sprite"
+          aria-label="Enable Music"
+          style="{{'icons' | sprite: 'soundoff.gif' | spritestyle: 'spritesheets' }}"
+        ></div>
+      </button>
+      <button class="toggle-enabled subtle js-only p0" onclick="setMusic(false)">
+        <div
+          role="img"
+          class="sprite"
+          aria-label="Enable Music"
+          style="{{'icons' | sprite: 'soundon.gif' | spritestyle: 'spritesheets' }}"
+        ></div>
+      </button>
+
+      <!-- - TODO: h-card for myself here - -->
+    </footer>
+
+    <dialog id="about">
+      <button autofocus onclick="dialog.close();">Close</button>
+      <p>This modal dialog has a groovy backdrop!</p>
+    </dialog>
+
+    <script>
+      //TODO: Use the bundler
+      const dialog = document.getElementById('about');
+    </script>
+    <script src="index.js"></script>
+  </body>
+</html>

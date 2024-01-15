@@ -1,0 +1,26 @@
+<article
+  class="h-entry tile bp"
+  role="gridcell"
+  tabindex="{% if positionX == 0 and positionY == 0 %}0{% else %}-1{% endif %}"
+  style="transform: translate({{positionX | times: 100 | plus: 50}}%, {{positionY | times: 100 | plus: 50}}%);"
+>
+  <a class=" u-url bp" href="#{{positionX}},{{positionY}}"></a>
+  <div class="e-content bp">
+    <div
+      role="img"
+      class="tileImg bp"
+      aria-label="{{tile.alt}}"
+      style="background-image: url(spritesheets/{{sprite.spritesheet}}); background-position-y: -{{sprite.positionY}}px;"
+    >
+      {% comment %} TODO: Some way of linking to the original image? {% endcomment %}
+    </div>
+  </div>
+  <div class="bubble note">
+    <address class="p-author h-card author">{{ tile.author }}</address>
+    <div class="description">
+      <h2 class="p-name name" role="presentation">{{ tile.name }}</h2>
+      , <time class="dt-published" datetime="{{tile.published}}">{{ tile.published | year }}</time>
+      <time class="dt-updated" datetime="{{tile.modified}}"></time>
+    </div>
+  </div>
+</article>
