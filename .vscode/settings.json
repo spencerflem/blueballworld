@@ -1,0 +1,8 @@
+{
+    "[liquid]": {
+        "editor.defaultFormatter": "Shopify.theme-check-vscode",
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    }
+}

@@ -1,9 +1,0 @@
-{
-    "up-left": {
-        "sprites": {
-            "openfragments": "in.gif",
-            "closedfragments": "in.gif",
-            "underconstructionfragments": "in.gif"
-        }
-    }
-}
