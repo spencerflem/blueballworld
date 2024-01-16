@@ -59,7 +59,6 @@
         box-shadow: var(--border-window-outer), var(--border-window-inner);
         background: var(--surface);
         padding: 3px;
-        margin: 0px 1px;
         display: flex;
         gap: 1px;
         align-items: center;
@@ -67,11 +66,19 @@
 
       footer > * {
         box-shadow: inset -1px -1px #cccccc, inset 1px 1px #999999;
-        margin: 4px 0;
-        padding: 0 4px;
+        margin: 0;
+        padding: 0;
         display: flex;
         align-items: center;
         height: 100%;
+      }
+
+      .link {
+        margin-right: 12px;
+      }
+
+      .logo {
+        padding: 0 8px;
       }
 
       button {
@@ -81,15 +88,12 @@
         background: var(--surface);
         box-shadow: var(--border-raised-outer), var(--border-raised-inner);
         border-radius: 0;
-        padding: 4px 12px;
-        margin: 0 4px;
+        margin: 0;
         font-family: 'Pixelated MS Sans Serif', Arial;
         font-size: 11px;
       }
 
       button.subtle {
-        padding: 0 5px;
-        margin: 5px 0;
         box-shadow: inset -1px -1px #cccccc, inset 1px 1px #999999;
       }
 
@@ -299,24 +303,22 @@
           style="{{'icons' | sprite: 'hidefooter.gif' | spritestyle: 'spritesheets' }}"
         ></div>
       </button>
-      <button class="subtle">
-        <a class="logo" href="/">
-          <div
-            role="img"
-            class="sprite"
-            aria-label="spenc.net home"
-            tile="spenc.net"
-            style="{{'icons' | sprite: 'spencnet.gif' | spritestyle: 'spritesheets' }}"
-          ></div>
-        </a>
-      </button>
+      <a class="logo" href="/">
+        <div
+          role="img"
+          class="sprite"
+          aria-label="spenc.net home"
+          tile="spenc.net"
+          style="{{'icons' | sprite: 'spencnet.gif' | spritestyle: 'spritesheets' }}"
+        ></div>
+      </a>
 
       <div class="nojs-only p2" style="flex-grow: 1; padding: 0 10px">Keep up the good fight, NoScripters</div>
 
       <div class="js-only p0" style="flex-grow: 1;">
         <span style="flex-grow: 1;"></span>
-        <button class="p0" onclick="dialog.show();">About</button>
-        <button class="p1" onclick="dialog.show();">Add to the Machine!</button>
+        <a class="p0 link" href="about" onclick="dialog.show(); event.preventDefault();">About</a>
+        <a class="p1 link" href="about#add" onclick="dialog.show(); event.preventDefault();">Add to the Machine!</a>
       </div>
       <div class="js-only p3">
         <label for="zoom">
@@ -358,7 +360,7 @@
             style="{{'icons' | sprite: 'position.gif' | spritestyle: 'spritesheets' }}"
           ></div>
         </label>
-        <span class="display" style="width: 50px">0, 0</span>
+        <span class="display" style="width: 100px">0, 0</span>
       </div>
 
       <button class="toggle-disabled subtle js-only p0" onclick="setMusic(true)">
@@ -382,6 +384,10 @@
     </footer>
 
     <dialog id="about">
+      {% render 'blueballmachine/about-contents' %}
+    </dialog>
+
+    <dialog id="add">
       <button autofocus onclick="dialog.close();">Close</button>
       <p>This modal dialog has a groovy backdrop!</p>
     </dialog>
